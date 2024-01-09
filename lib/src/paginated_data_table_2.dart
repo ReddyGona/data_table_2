@@ -697,7 +697,7 @@ class PaginatedDataTable2State extends State<PaginatedDataTable2> {
     double startPadding = widget.horizontalMargin;
     final List<Widget> headerWidgets = <Widget>[];
 
-    if (_selectedRowCount == 0 && widget.header != null) {
+    if (widget.header != null) {
       headerWidgets.add(Expanded(child: widget.header!));
       if (widget.header is ButtonBar) {
         // We adjust the padding when a button bar is present, because the
@@ -707,11 +707,12 @@ class PaginatedDataTable2State extends State<PaginatedDataTable2> {
         // inside of the button to line up with the 24.0 left inset.
         startPadding = 12.0;
       }
-    } else if (widget.header != null) {
-      headerWidgets.add(Expanded(
-        child: Text(localizations.selectedRowCountTitle(_selectedRowCount)),
-      ));
     }
+    //  else if (widget.header != null) {
+    //   headerWidgets.add(Expanded(
+    //     child: Text(localizations.selectedRowCountTitle(_selectedRowCount)),
+    //   ));
+    // }
     if (widget.actions != null) {
       headerWidgets.addAll(widget.actions!.map<Widget>((Widget action) {
         return Padding(
@@ -728,25 +729,14 @@ class PaginatedDataTable2State extends State<PaginatedDataTable2> {
         // These typographic styles aren't quite the regular ones. We pick the closest ones from the regular
         // list and then tweak them appropriately.
         // See https://material.io/design/components/data-tables.html#tables-within-cards
-        style: _selectedRowCount > 0
-            ? themeData.textTheme.titleMedium!
-                .copyWith(color: themeData.colorScheme.secondary)
-            : themeData.textTheme.titleLarge!
-                .copyWith(fontWeight: FontWeight.w400),
-        child: IconTheme.merge(
-          data: const IconThemeData(opacity: 0.54),
-          child: Ink(
-            height: 64.0,
-            color:
-                _selectedRowCount > 0 ? themeData.secondaryHeaderColor : null,
-            child: Padding(
-              padding:
-                  EdgeInsetsDirectional.only(start: startPadding, end: 14.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: headerWidgets,
-              ),
-            ),
+        style: themeData.textTheme.titleLarge!
+            .copyWith(fontWeight: FontWeight.w400),
+        child: Padding(
+          padding: EdgeInsetsDirectional.only(
+              start: startPadding, top: startPadding, end: 14.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: headerWidgets,
           ),
         ),
       ),
