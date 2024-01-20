@@ -705,7 +705,7 @@ class PaginatedDataTable2State extends State<PaginatedDataTable2> {
         // around each button on each side, and the button itself will have 8
         // pixels internally on each side, yet we want the left edge of the
         // inside of the button to line up with the 24.0 left inset.
-        startPadding = 12.0;
+        startPadding = 1.0;
       }
     }
     //  else if (widget.header != null) {

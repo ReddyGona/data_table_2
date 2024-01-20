@@ -588,15 +588,16 @@ class DataTable2 extends DataTable {
         return null;
       },
     );
-    final anyRowSelectable =
-        rows.any((DataRow row) => row.onSelectChanged != null);
+    final anyRowSelectable = rows.any((DataRow row) =>
+        row.onSelectChanged != null || row.onSelectChanged == null);
     final displayCheckboxColumn = showCheckboxColumn && anyRowSelectable;
     final rowsWithCheckbox = displayCheckboxColumn
         ? rows.where((DataRow row) => row.onSelectChanged != null)
         : <DataRow2>[];
     final rowsChecked = rowsWithCheckbox.where((DataRow row) => row.selected);
-    final allChecked =
-        displayCheckboxColumn && rowsChecked.length == rowsWithCheckbox.length;
+    final allChecked = displayCheckboxColumn &&
+        rowsChecked.length == rowsWithCheckbox.length &&
+        rowsWithCheckbox.isNotEmpty;
     final anyChecked = displayCheckboxColumn && rowsChecked.isNotEmpty;
     final someChecked = anyChecked && !allChecked;
     final effectiveHorizontalMargin = horizontalMargin ??
